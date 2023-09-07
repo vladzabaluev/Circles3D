@@ -14,19 +14,6 @@ public class SelfRotating : MoveState
         _currentRotationSpeed = _rotationSpeed;
     }
 
-    protected override void HandleMovement(MovementStateController.MoveState state)
-    {
-        base.HandleMovement(state);
-        if (state == MovementStateController.MoveState.MovementToTransitionArea)
-        {
-            _currentRotationSpeed = 0;
-        }
-        else
-        {
-            _currentRotationSpeed = _rotationSpeed;
-        }
-    }
-
     public override void OnMovementEventPerfomed(BrigeTail.MovementEvent movementEvent)
     {
         base.OnMovementEventPerfomed(movementEvent);
@@ -38,18 +25,6 @@ public class SelfRotating : MoveState
         {
             _currentRotationSpeed = _rotationSpeed;
         }
-    }
-
-    public override void StartMoving()
-    {
-        base.StartMoving();
-        _currentRotationSpeed = _rotationSpeed;
-    }
-
-    public override void StopMoving()
-    {
-        base.StopMoving();
-        _currentRotationSpeed = 0;
     }
 
     // Update is called once per frame

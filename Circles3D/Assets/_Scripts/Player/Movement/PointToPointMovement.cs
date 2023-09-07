@@ -6,38 +6,36 @@ using UnityEngine;
 
 public class PointToPointMovement : MoveState
 {
-    [SerializeField] private Transform _CenterPoint;
-    [SerializeField] private Transform _EdgePoint;
+    public static PointToPointMovement Instace;
+
+    private Transform _CenterPoint;
+    private Transform _EdgePoint;
 
     private Transform _target;
 
     [SerializeField] private float _Speed;
-    private bool _moveDirection;
+    private bool _moveToCenter;
     private bool _canSwitchTarget;
 
+    public Action AnotherCircleReached;
+
     // Start is called before the first frame update
+    private void Awake()
+    {
+        if (Instace == null)
+        {
+            Instace = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     protected override void Start()
     {
         base.Start();
         TouchInputHandler.Instance.OnDirectionChanged += ChangeDirection;
-    }
-
-    protected override void HandleMovement(MovementStateController.MoveState state)
-    {
-        base.HandleMovement(state);
-        _canSwitchTarget = state != MovementStateController.MoveState.Transition;
-    }
-
-    public override void StartMoving()
-    {
-        base.StartMoving();
-        _canSwitchTarget = true;
-    }
-
-    public override void StopMoving()
-    {
-        base.StopMoving();
-        _canSwitchTarget = false;
     }
 
     public override void OnMovementEventPerfomed(BrigeTail.MovementEvent movementEvent)
@@ -45,23 +43,34 @@ public class PointToPointMovement : MoveState
         _canSwitchTarget = movementEvent != BrigeTail.MovementEvent.TransitionStart;
     }
 
-    private void ChangeDirection(bool moveDirection)
+    private void ChangeDirection(bool moveToCenter)
     {
-        _moveDirection = moveDirection;
+        _moveToCenter = moveToCenter;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        if (_canSwitchTarget && _target != null)
+        if (_target != null)
         {
-            if (_moveDirection)
+            if (_canSwitchTarget)
             {
-                _target = _CenterPoint;
+                if (_moveToCenter)
+                {
+                    _target = _CenterPoint;
+                }
+                else
+                {
+                    _target = _EdgePoint;
+                }
             }
             else
             {
                 _target = _EdgePoint;
+                if (Vector3.Distance(transform.position, new Vector3(_target.position.x, transform.position.y, _target.position.z)) < 0.1f)
+                {
+                    AnotherCircleReached?.Invoke();
+                }
             }
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(_target.position.x, transform.position.y, _target.position.z), _Speed * Time.deltaTime);
         }

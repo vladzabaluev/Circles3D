@@ -9,19 +9,7 @@ public class MoveState : MonoBehaviour
         //MovementStateController.Instance.OnMoveStateChanged += HandleMovement;
     }
 
-    protected virtual void HandleMovement(MovementStateController.MoveState state)
-    {
-    }
-
     public virtual void OnMovementEventPerfomed(BrigeTail.MovementEvent movementEvent)
-    {
-    }
-
-    public virtual void StartMoving()
-    {
-    }
-
-    public virtual void StopMoving()
     {
     }
 }

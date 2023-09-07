@@ -1,38 +1,85 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TriggerSpawner : MonoBehaviour
 {
-    public static TriggerSpawner Instance;
-
     [SerializeField] private TransitionTrigger _trigger;
+    [SerializeField] private SectorPainting _sectorPainter;
+
+    [SerializeField] private Circle _circleVisual;
+    [SerializeField] private BrigeTail _selfTail;
+
+    private List<TransitionTrigger> _triggers;
+
+    [SerializeField] private bool _CreateStartTriggers;
+
+    private bool _isEdgeTrigger;
+    public bool IsEdgeTrigger => _isEdgeTrigger;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    public void SpawnTrigger(Vector3 position, Transform parent)
-    {
-        TransitionTrigger transitionTrigger = Instantiate(_trigger, position, Quaternion.identity, parent);
-        transitionTrigger.transform.position = position;
     }
 
     // Start is called before the first frame update
     private void Start()
     {
+        _triggers = new List<TransitionTrigger>();
+
+        if (_CreateStartTriggers)
+        {
+            CreateTransitionTriggers();
+        }
+
+        TransitionController.Instance.OnTransitionComplete += CheckOnComplince;
     }
 
-    // Update is called once per frame
-    private void Update()
+    private void OnDisable()
     {
+        TransitionController.Instance.OnTransitionComplete -= CheckOnComplince;
+    }
+
+    private void CheckOnComplince(BrigeTail playerTail, BrigeTail newTargetTrail)
+    {
+        if (_selfTail == playerTail)
+        {
+            DestroyTriggers();
+        }
+        if (_selfTail == newTargetTrail)
+        {
+            CreateTransitionTriggers();
+        }
+    }
+
+    private void CreateTransitionTriggers()
+    {
+        List<Vector3> positions = _sectorPainter.GetLinePointsPositions();
+        for (int i = 0; i < positions.Count; i++)
+        {
+            if (i == 0 || i == positions.Count - 1)
+            {
+                SpawnTrigger(transform.position + positions[i] /** transform.parent.localScale.x*/, _circleVisual).IsEdgeTrigger = true;
+            }
+            else
+            {
+                SpawnTrigger(transform.position + positions[i] /** transform.parent.localScale.x*/, _circleVisual).IsEdgeTrigger = false;
+            }
+        }
+    }
+
+    private void DestroyTriggers()
+    {
+        Destroy(gameObject);
+    }
+
+    private TransitionTrigger SpawnTrigger(Vector3 position, Circle parentCircle)
+    {
+        TransitionTrigger transitionTrigger = Instantiate(_trigger, position, Quaternion.identity, transform);
+        transitionTrigger.Initialize(parentCircle, _selfTail);
+        _triggers.Add(transitionTrigger);
+        return transitionTrigger;
+        //transitionTrigger.transform.position = position;
     }
 }

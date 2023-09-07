@@ -35,7 +35,17 @@ public class SectorPainting : MonoBehaviour
         }
     }
 
-    public void GetEdgeLineRenderPoints(out Vector3 firstPoint, out Vector3 lastPoint)
+    public List<Vector3> GetLinePointsPositions()
+    {
+        List<Vector3> positions = new List<Vector3>();
+        for (int i = 0; i < _LineRenderer.positionCount; i++)
+        {
+            positions.Add(transform.TransformVector(_LineRenderer.GetPosition(i)));
+        }
+        return positions;
+    }
+
+    public void GetEdgeLinePointsPositions(out Vector3 firstPoint, out Vector3 lastPoint)
     {
         firstPoint = _LineRenderer.GetPosition(0);
         lastPoint = _LineRenderer.GetPosition(_numPoints - 1);
