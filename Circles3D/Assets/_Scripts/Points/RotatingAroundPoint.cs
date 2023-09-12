@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class RotatingAroundPoint : MoveState
 {
-    [SerializeField] private Circle _circle;
-    private Transform _centerPoint;
+    //[SerializeField] private Circle _circle;
+    [SerializeField] private Transform _centerPoint;
+
     [SerializeField] private float _rotationSpeed;
 
     [SerializeField] private float _targetAngle;
@@ -20,7 +21,12 @@ public class RotatingAroundPoint : MoveState
     protected override void Start()
     {
         base.Start();
-        _centerPoint = _circle.transform;
+    }
+
+    public void SetAngles(float startAngle, float targetAngle)
+    {
+        _startAngle = startAngle;
+        _targetAngle = targetAngle;
         transform.eulerAngles = new Vector3(0, _startAngle, 0);
         transform.SetParent(transform.parent.parent);
     }

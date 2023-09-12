@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5560511810645797636}
   - component: {fileID: 2049309527956343347}
+  - component: {fileID: 9160617283149634170}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -83,6 +84,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 50
+--- !u!114 &9160617283149634170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689028981914523749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea4e6ef03f9ba804a9a50a7b883fd9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotatingAroundPoint: {fileID: 655324482428269342}
+  _previousCircle: {fileID: 0}
+  _nextCircle: {fileID: 0}
 --- !u!1 &1474894055420836575
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,10 +145,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _centerPoint: {fileID: 8496719371232647356}
   _edgePoint: {fileID: 1197296804396920343}
-  _playerPointToPointMovement: {fileID: 0}
   _circleRotating: {fileID: 2049309527956343347}
   _movementToTransitionArea: {fileID: 655324482428269342}
   _targetTail: {fileID: 0}
+  _isPlayerHere: 0
+  _canTransitToThisCircle: 0
 --- !u!1 &3902714751254442544
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,7 +503,7 @@ LineRenderer:
   - {x: -0.000000021855694, y: 0, z: 0.5}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 6
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -972,7 +989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ab80730d433ed42bd8414f045f9256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _circle: {fileID: 5573917587452607773}
+  _centerPoint: {fileID: 0}
   _rotationSpeed: 25
   _targetAngle: 90
   _startAngle: 0
@@ -1024,3 +1041,4 @@ MonoBehaviour:
   _sectorPainter: {fileID: 3431744780901220818}
   _circleVisual: {fileID: 5573917587452607773}
   _selfTail: {fileID: 7329436280622893661}
+  _CreateStartTriggers: 0
