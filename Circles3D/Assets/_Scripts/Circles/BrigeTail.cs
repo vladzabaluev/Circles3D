@@ -35,6 +35,8 @@ public class BrigeTail : MonoBehaviour
         _dependendedMotions.Add(_circleRotating);
         _dependendedMotions.Add(_movementToTransitionArea);
 
+        _movementToTransitionArea.SetRotationDirection(_circleRotating.IsClockwise);
+
         _movementToTransitionArea.TargetComplete += (() =>
         {
             SendMotionEventPerfomed(MovementEvent.WaitingTransitionMoment);
@@ -52,8 +54,11 @@ public class BrigeTail : MonoBehaviour
 
     public void StartGame()
     {
-        PointToPointMovement.Instace.SetTargetPoints(_edgePoint, _centerPoint);
-        SendMotionEventPerfomed(MovementEvent.ComingToTransitionArea);
+        if (IsPlayerHere)
+        {
+            PointToPointMovement.Instace.SetTargetPoints(_edgePoint, _centerPoint);
+            SendMotionEventPerfomed(MovementEvent.ComingToTransitionArea);
+        }
     }
 
     public void TryTransit(bool isNewBrigeTail)
@@ -94,11 +99,6 @@ public class BrigeTail : MonoBehaviour
         {
             d.OnMovementEventPerfomed(movementEvent);
         }
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
     }
 
     public enum MovementEvent

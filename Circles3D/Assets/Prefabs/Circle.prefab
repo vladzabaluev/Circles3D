@@ -84,6 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 50
+  _isClockwise: 0
 --- !u!114 &9160617283149634170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,7 +504,7 @@ LineRenderer:
   - {x: -0.000000021855694, y: 0, z: 0.5}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 6
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -989,7 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60ab80730d433ed42bd8414f045f9256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _centerPoint: {fileID: 0}
+  _centerPoint: {fileID: 5560511810645797636}
   _rotationSpeed: 25
   _targetAngle: 90
   _startAngle: 0

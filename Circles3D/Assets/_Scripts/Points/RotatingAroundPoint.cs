@@ -16,6 +16,7 @@ public class RotatingAroundPoint : MoveState
     private bool _isRotating;
 
     public Action TargetComplete;
+    private int _clockwiseValue;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -23,10 +24,19 @@ public class RotatingAroundPoint : MoveState
         base.Start();
     }
 
-    public void SetAngles(float startAngle, float targetAngle)
+    public void SetRotationDirection(bool circlesIsClockwise)
+    {
+        _clockwiseValue = circlesIsClockwise ? -1 : 1;
+    }
+
+    public void SetStartAndTargetAngles(float startAngle, float targetAngle)
     {
         _startAngle = startAngle;
         _targetAngle = targetAngle;
+        if (_targetAngle < 0)
+        {
+            _targetAngle += 360;
+        }
         transform.eulerAngles = new Vector3(0, _startAngle, 0);
         transform.SetParent(transform.parent.parent);
     }
@@ -44,7 +54,7 @@ public class RotatingAroundPoint : MoveState
         {
             if (Mathf.Abs(transform.eulerAngles.y - _targetAngle) > 2f)
             {
-                transform.RotateAround(_centerPoint.position, -Vector3.up, _rotationSpeed * Time.deltaTime); //Менять направление движение с помощью +- у оси
+                transform.RotateAround(_centerPoint.position, Vector3.up * _clockwiseValue, _rotationSpeed * Time.deltaTime); //Менять направление движение с помощью +- у оси
             }
             else
             {
