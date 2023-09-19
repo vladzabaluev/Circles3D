@@ -16,7 +16,7 @@ public class PointToPointMovement : MoveState
     [SerializeField] private float _Speed;
     private bool _moveToCenter;
     private bool _canSwitchTarget;
-
+    public bool IsVulnerable => _canSwitchTarget;
     public Action AnotherCircleReached;
 
     // Start is called before the first frame update

@@ -15,46 +15,48 @@ public class AngleCalculator : MonoBehaviour
         if (_previousCircle == null)
         {
             _rotatingAroundPoint.SetStartAndTargetAngles(CalculateAngle(transform.position, transform.position), CalculateAngle(transform.position, _nextCircle.position));
-            Debug.Log("1 ый");
+            //Debug.Log("Нет предыдущего");
         }
         else if (_nextCircle == null)
         {
             _rotatingAroundPoint.SetStartAndTargetAngles(CalculateAngle(transform.position, _previousCircle.position), CalculateAngle(transform.position, transform.position));
-            Debug.Log("3 uй");
+            //Debug.Log("Нет следующего");
         }
         else
         {
             _rotatingAroundPoint.SetStartAndTargetAngles(CalculateAngle(transform.position, _previousCircle.position), CalculateAngle(transform.position, _nextCircle.position));
-            Debug.Log("2 oй");
+
+            //Debug.Log("Есть оба");
         }
     }
 
     private float CalculateAngle(Vector3 startPoint, Vector3 finishPoint)
     {
         Vector3 direction = finishPoint - startPoint;
+        //Debug.DrawRay(transform.position, (finishPoint - startPoint).normalized * 5, Color.blue, 100);
+        //Debug.DrawRay(transform.position, transform.right * 5, Color.blue, 100);
+        //Debug.Log(Vector3.Angle(transform.right, (_nextCircle.position - transform.position).normalized));
 
-        // Вычисляем угол между этим вектором и направлением вперед (или другим направлением, если нужно)
-        float angle = Vector3.Angle(direction.normalized, transform.right);
-
-        // Теперь переменная 'angle' содержит угол между объектами
-        if (finishPoint.x > startPoint.x)
-        {
-            if (finishPoint.z > startPoint.z)
+        float angle = Vector3.Angle(transform.right, direction.normalized);
+        if (_nextCircle != null)
+            if (finishPoint == _nextCircle.position)
             {
-                Debug.Log("ПОПАЛ");
-                angle -= 90;
+                angle = 360 - angle;
             }
-        }
-        else
-        {
-            if (finishPoint.z > startPoint.z)
-            {
-                Debug.Log("ПОПАЛ 2");
-                angle += 90;
-            }
-        }
+        //Debug.Log("Угол между объектами: " + angle);
 
-        Debug.Log("Угол между объектами: " + angle);
         return angle;
     }
+
+    //#if UNITY_EDITOR
+
+    //    private void OnDrawGizmosSelected()
+    //    {
+    //        Gizmos.color = Color.gray;
+    //        Gizmos.DrawRay(transform.position, (_nextCircle.position - transform.position).normalized * 5);
+    //        Gizmos.DrawRay(transform.position, transform.right * 5);
+    //        Debug.Log(Vector3.Angle(transform.right, (_nextCircle.position - transform.position).normalized));
+    //    }
+
+    //#endif
 }

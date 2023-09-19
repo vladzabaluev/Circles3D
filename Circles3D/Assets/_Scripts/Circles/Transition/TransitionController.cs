@@ -66,12 +66,15 @@ public class TransitionController : MonoBehaviour
             PlayerBrigeTail.ReadyToTransit = true;
             PlayerBrigeTail.Tail = brigeTail;
         }
-        else if (PlayerBrigeTail.Tail.TargetTail)
+        else
         {
-            if (brigeTail.CanTransitToThisCircle && PlayerBrigeTail.Tail.TargetTail == brigeTail)
+            if (PlayerBrigeTail.Tail)
             {
-                TargetBrigeTail.Tail = brigeTail;
-                TargetBrigeTail.ReadyToTransit = true;
+                if (brigeTail.CanTransitToThisCircle && PlayerBrigeTail.Tail.TargetTail == brigeTail)
+                {
+                    TargetBrigeTail.Tail = brigeTail;
+                    TargetBrigeTail.ReadyToTransit = true;
+                }
             }
         }
         //if (brigeTail.IsPlayerHere)
@@ -118,17 +121,23 @@ public class TransitionController : MonoBehaviour
 
     private void TryTransit()
     {
+        Debug.Log(PlayerBrigeTail.ReadyToTransit);
+        Debug.Log(TargetBrigeTail.ReadyToTransit);
         if (PlayerBrigeTail.ReadyToTransit && TargetBrigeTail.ReadyToTransit)
         {
-            Debug.Log("Ïîïûòêà ïåğåõîäà");
+            //Debug.Log("Ïîïûòêà ïåğåõîäà");
             if (!PlayerBrigeTail.Tail.CheckTransitionPossibility())
             {
-                Debug.Log("ÍÅÓÑÏÅØÍÎ");
+                //Debug.Log("ÍÅÓÑÏÅØÍÎ");
                 return;
             }
-            Debug.Log("ÓÑÏÅØÍÎ");
+            //Debug.Log("ÓÑÏÅØÍÎ");
             PlayerBrigeTail.Count = 0;
             TargetBrigeTail.Count = 0;
+
+            PlayerBrigeTail.ReadyToTransit = false;
+            TargetBrigeTail.ReadyToTransit = false;
+
             PlayerBrigeTail.Tail.TryTransit(false);
             TargetBrigeTail.Tail.TryTransit(true);
             OnTransitionComplete?.Invoke(PlayerBrigeTail.Tail, TargetBrigeTail.Tail.TargetTail);
