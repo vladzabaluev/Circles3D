@@ -9,7 +9,6 @@ public class TriggerSpawner : MonoBehaviour
     [SerializeField] private TransitionTrigger _trigger;
     [SerializeField] private SectorPainting _sectorPainter;
 
-    [SerializeField] private Circle _circleVisual;
     [SerializeField] private BrigeTail _selfTail;
 
     private List<TransitionTrigger> _triggers;
@@ -60,11 +59,11 @@ public class TriggerSpawner : MonoBehaviour
         {
             if (i == 0 || i == positions.Count - 1)
             {
-                SpawnTrigger(transform.position + positions[i] /** transform.parent.localScale.x*/, _circleVisual).IsEdgeTrigger = true;
+                SpawnTrigger(transform.position + positions[i] /** transform.parent.localScale.x*/).IsEdgeTrigger = true;
             }
             else
             {
-                SpawnTrigger(transform.position + positions[i] /** transform.parent.localScale.x*/, _circleVisual).IsEdgeTrigger = false;
+                SpawnTrigger(transform.position + positions[i] /** transform.parent.localScale.x*/).IsEdgeTrigger = false;
             }
         }
     }
@@ -74,10 +73,10 @@ public class TriggerSpawner : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private TransitionTrigger SpawnTrigger(Vector3 position, Circle parentCircle)
+    private TransitionTrigger SpawnTrigger(Vector3 position)
     {
         TransitionTrigger transitionTrigger = Instantiate(_trigger, position, Quaternion.identity, transform);
-        transitionTrigger.Initialize(parentCircle, _selfTail);
+        transitionTrigger.Initialize(_selfTail);
         _triggers.Add(transitionTrigger);
         return transitionTrigger;
         //transitionTrigger.transform.position = position;

@@ -12,4 +12,7 @@ public class MoveState : MonoBehaviour
     public virtual void OnMovementEventPerfomed(BrigeTail.MovementEvent movementEvent)
     {
     }
+
+    public virtual void SetRotationSpeed(float speed)
+    { }
 }

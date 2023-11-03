@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class RotatingAroundPoint : MoveState
 {
@@ -27,6 +29,12 @@ public class RotatingAroundPoint : MoveState
     public void SetRotationDirection(bool circlesIsClockwise)
     {
         _clockwiseValue = circlesIsClockwise ? -1 : 1;
+    }
+
+    public override void SetRotationSpeed(float speed)
+    {
+        base.SetRotationSpeed(speed);
+        _rotationSpeed = speed / 2;
     }
 
     public void SetStartAndTargetAngles(float startAngle, float targetAngle)
@@ -60,6 +68,22 @@ public class RotatingAroundPoint : MoveState
             {
                 TargetComplete?.Invoke();
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.TryGetComponent(out TouchInputHandler player))
+        {
+            player.transform.SetParent(this.transform);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out TouchInputHandler player))
+        {
+            player.transform.SetParent(this.transform);
         }
     }
 }

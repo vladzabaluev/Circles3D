@@ -68,14 +68,19 @@ public class TransitionController : MonoBehaviour
         }
         else
         {
-            if (PlayerBrigeTail.Tail)
+            if (brigeTail.CanTransitToThisCircle)
             {
-                if (brigeTail.CanTransitToThisCircle && PlayerBrigeTail.Tail.TargetTail == brigeTail)
-                {
-                    TargetBrigeTail.Tail = brigeTail;
-                    TargetBrigeTail.ReadyToTransit = true;
-                }
+                TargetBrigeTail.Tail = brigeTail;
+                TargetBrigeTail.ReadyToTransit = true;
             }
+            //if (PlayerBrigeTail.Tail)
+            //{
+            //    if (brigeTail.CanTransitToThisCircle && PlayerBrigeTail.Tail.TargetTail == brigeTail)
+            //    {
+            //        TargetBrigeTail.Tail = brigeTail;
+            //        TargetBrigeTail.ReadyToTransit = true;
+            //    }
+            //}
         }
         //if (brigeTail.IsPlayerHere)
         //{
@@ -138,8 +143,8 @@ public class TransitionController : MonoBehaviour
             PlayerBrigeTail.ReadyToTransit = false;
             TargetBrigeTail.ReadyToTransit = false;
 
-            PlayerBrigeTail.Tail.TryTransit(false);
-            TargetBrigeTail.Tail.TryTransit(true);
+            PlayerBrigeTail.Tail.DoTransit(false);
+            TargetBrigeTail.Tail.DoTransit(true);
             OnTransitionComplete?.Invoke(PlayerBrigeTail.Tail, TargetBrigeTail.Tail.TargetTail);
         }
 

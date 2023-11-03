@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SelfRotating : MoveState
 {
@@ -18,7 +19,6 @@ public class SelfRotating : MoveState
     protected override void Start()
     {
         base.Start();
-        _currentRotationSpeed = _rotationSpeed;
 
         _clockwiseValue = _isClockwise ? 1 : -1;
     }
@@ -34,6 +34,14 @@ public class SelfRotating : MoveState
         {
             _currentRotationSpeed = _rotationSpeed;
         }
+    }
+
+    public override void SetRotationSpeed(float speed)
+    {
+        base.SetRotationSpeed(speed);
+        _rotationSpeed = speed;
+
+        _currentRotationSpeed = _rotationSpeed;
     }
 
     // Update is called once per frame

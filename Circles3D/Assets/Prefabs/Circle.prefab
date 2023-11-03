@@ -60,7 +60,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6470297628118170801}
   - {fileID: 8007449679080542127}
@@ -110,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8007449679080542127}
   - component: {fileID: 7329436280622893661}
+  - component: {fileID: 1685268538792585767}
   m_Layer: 0
   m_Name: MotionController
   m_TagString: Untagged
@@ -151,6 +152,28 @@ MonoBehaviour:
   _targetTail: {fileID: 0}
   _isPlayerHere: 0
   _canTransitToThisCircle: 0
+  _rotationTarget: {fileID: 4929175244111034633}
+--- !u!135 &1685268538792585767
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474894055420836575}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3902714751254442544
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +224,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4249929059102273532
 Transform:
   m_ObjectHideFlags: 0
@@ -302,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579127b7c60adfa48894f3d7bf656547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerCircle: {fileID: 5560511810645797636}
 --- !u!1 &6450637004634574367
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,8 +355,8 @@ Transform:
   m_GameObject: {fileID: 6450637004634574367}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2305, y: 0, z: 0}
-  m_LocalScale: {x: 0.461, y: 0.04, z: 0.2}
+  m_LocalPosition: {x: 0.2406, y: 0.023, z: 0}
+  m_LocalScale: {x: 0.48119178, y: 0.04, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2933034221443169668}
@@ -352,7 +376,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6450637004634574367}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -415,7 +439,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -621,7 +645,6 @@ GameObject:
   - component: {fileID: 3786519379769224156}
   - component: {fileID: 8845332549817184871}
   - component: {fileID: 4543167603845465835}
-  - component: {fileID: 1405242288788699895}
   - component: {fileID: 5573917587452607773}
   m_Layer: 0
   m_Name: CircleMesh
@@ -695,27 +718,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1405242288788699895
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7786181216045509924}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5573917587452607773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -848,6 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579127b7c60adfa48894f3d7bf656547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerCircle: {fileID: 5560511810645797636}
 --- !u!1 &8228523729829119238
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +971,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579127b7c60adfa48894f3d7bf656547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _centerCircle: {fileID: 5560511810645797636}
 --- !u!1 &8250323728266944724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,6 +1032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2933034221443169668}
   - component: {fileID: 655324482428269342}
+  - component: {fileID: 6776907477526193503}
   m_Layer: 0
   m_Name: PointsPivot
   m_TagString: Untagged
@@ -1069,6 +1074,27 @@ MonoBehaviour:
   _rotationSpeed: 25
   _targetAngle: 90
   _startAngle: 0
+--- !u!65 &6776907477526193503
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452107369012192910}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.48, y: 0.04, z: 0.19}
+  m_Center: {x: 0.25, y: 0.025, z: 0}
 --- !u!1 &8665209245538764652
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1141,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _trigger: {fileID: 4412262744880967550, guid: 3f94364c71eeaee46b4998446268bd34, type: 3}
   _sectorPainter: {fileID: 3431744780901220818}
-  _circleVisual: {fileID: 5573917587452607773}
   _selfTail: {fileID: 7329436280622893661}
   _CreateStartTriggers: 0

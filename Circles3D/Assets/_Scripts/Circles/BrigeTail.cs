@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static BrigeTail;
 
 public class BrigeTail : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class BrigeTail : MonoBehaviour
 
     private List<MoveState> _dependendedMotions = new List<MoveState>();
 
+    [SerializeField] private RotationTarget _rotationTarget;
+
     private void Start()
     {
         _dependendedMotions.Add(PointToPointMovement.Instace);
@@ -50,6 +53,12 @@ public class BrigeTail : MonoBehaviour
             if (_isPlayerHere)
                 SendMotionEventPerfomed(MovementEvent.ComingToTransitionArea);
         });
+
+        float rotationSpeed = Random.Range(4, 7) * 10;
+        foreach (var d in _dependendedMotions)
+        {
+            d.SetRotationSpeed(rotationSpeed);
+        }
     }
 
     public void StartGame()
@@ -61,12 +70,15 @@ public class BrigeTail : MonoBehaviour
         }
     }
 
-    public void TryTransit(bool isNewBrigeTail)
+    public void DoTransit(bool isNewBrigeTail)
     {
         if (isNewBrigeTail)
         {
             PointToPointMovement.Instace.SetTargetPoints(_edgePoint, _centerPoint);
-
+            if (PointToPointMovement.Instace.gameObject.TryGetComponent(out PlayerRotater playerRotater))
+            {
+                playerRotater.SetRotationTarget(_rotationTarget);
+            }
             _canTransitToThisCircle = false;
             if (_targetTail)
                 _targetTail._canTransitToThisCircle = true;

@@ -7,7 +7,7 @@ public class RotationTarget : MonoBehaviour
 {
     [SerializeField] private SelfRotating parentCircle;
 
-    private void Start()
+    private void Awake()
     {
         if (parentCircle.IsClockwise)
         {
@@ -16,16 +16,6 @@ public class RotationTarget : MonoBehaviour
         else
         {
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent(out PlayerRotater playerRotater))
-        {
-            Debug.Log("ириририр");
-
-            playerRotater.SetRotationTarget(this);
         }
     }
 }
